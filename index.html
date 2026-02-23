@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ПТДАДТА</title>
+    <title>ПТДАДТА — ОТВЕТЧИК</title>
     <style>
         body {
-    background: linear-gradient(45deg, #000, #222);
-    color: white;
-    font-size: 50px;
-    text-align: center;
-    padding-top: 20%;
-    animation: pulse 3s infinite;
-}
-
-@keyframes pulse {
-    0% { text-shadow: 0 0 5px white; }
-    50% { text-shadow: 0 0 30px #ff00ff, 0 0 50px #00ffff; }
-    100% { text-shadow: 0 0 5px white; }
-}
+            background: black;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            padding-top: 10%;
+        }
+        input, button {
+            font-size: 20px;
+            padding: 10px;
+            margin: 10px;
+        }
+        #ответ {
+            font-size: 30px;
+            margin-top: 30px;
+            color: yellow;
+            text-shadow: 0 0 10px orange;
+        }
     </style>
 </head>
 <body>
-    ПТДАДТА 🕊️💎✨
+
+    <h1>ПТДАДТА — ОТВЕТЧИК</h1>
+
+    <input type="text" id="ввод" placeholder="Кого подрезать?">
+    <button onclick="ответить()">Подрезать</button>
+
+    <div id="ответ"></div>
+
+    <script>
+        function ответить() {
+            let текст = document.getElementById("ввод").value.toLowerCase().trim();
+            let ответ = document.getElementById("ответ");
+
+            if (текст === "легковушка" || текст === "легковушки") {
+                ответ.innerHTML = "Хахахахах, сьебалась нищая 😂";
+            } else if (текст === "автобус" || текст === "автобусы") {
+                ответ.innerHTML = "Ахахахахха, вы чо ахуели, бабки? время 6 утра 🕕😂";
+            } else if (текст === "дальнобой" || текст === "дальнобойщик") {
+                ответ.innerHTML = "Так тебе и надо, пидорас 🚛💥";
+            } else {
+                ответ.innerHTML = "Я хуй знает кого подрезать 🤷";
+            }
+        }
+    </script>
+
 </body>
 </html>
