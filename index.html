@@ -1,52 +1,248 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ПТДАДТА — ОТВЕТЧИК</title>
+    <title>ПТДАДТА — ГЕНЕРАТОР ХУЙНИ</title>
     <style>
         body {
-            background: black;
+            background: linear-gradient(45deg, #000, #1a0033);
             color: white;
-            font-family: Arial;
+            font-family: 'Comic Sans MS', 'Arial', cursive;
             text-align: center;
-            padding-top: 10%;
+            padding-top: 5%;
+            animation: фон 10s infinite alternate;
         }
+        
+        @keyframes фон {
+            0% { background: linear-gradient(45deg, #000, #1a0033); }
+            50% { background: linear-gradient(45deg, #1a0033, #33001a); }
+            100% { background: linear-gradient(45deg, #33001a, #000); }
+        }
+        
+        h1 {
+            font-size: 60px;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+            animation: текст 3s infinite;
+        }
+        
+        @keyframes текст {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
         input, button {
-            font-size: 20px;
-            padding: 10px;
-            margin: 10px;
+            font-size: 24px;
+            padding: 15px 30px;
+            margin: 20px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            cursor: pointer;
+            transition: 0.3s;
         }
+        
+        button:hover {
+            transform: scale(1.1);
+            background: #ffaa00;
+            box-shadow: 0 0 30px orange;
+        }
+        
         #ответ {
-            font-size: 30px;
-            margin-top: 30px;
-            color: yellow;
-            text-shadow: 0 0 10px orange;
+            font-size: 40px;
+            margin: 50px auto;
+            padding: 30px;
+            max-width: 800px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50px;
+            border: 3px solid gold;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .счётчик {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 2px solid gold;
+            font-size: 20px;
+        }
+        
+        .секрет {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .секрет:hover {
+            background: rgba(255,0,0,0.8);
         }
     </style>
 </head>
 <body>
 
-    <h1>ПТДАДТА — ОТВЕТЧИК</h1>
+    <h1>🤪 ПТДАДТА — ГЕНЕРАТОР ХУЙНИ 🤪</h1>
 
-    <input type="text" id="ввод" placeholder="Кого подрезать?">
-    <button onclick="ответить()">Подрезать</button>
+    <input type="text" id="ввод" placeholder="Кого/что подрезать?" size="30">
+    <button onclick="ответить()">🚗 ПОДРЕЗАТЬ 🚗</button>
+    <button onclick="рандомныйОтвет()">🎲 РАНДОМНАЯ ХУЙНЯ 🎲</button>
 
-    <div id="ответ"></div>
+    <div id="ответ">👆 ЖМИ, НЕ СТЕСНЯЙСЯ 👆</div>
+
+    <div class="счётчик" id="счётчик">Всего подрезано: 0</div>
+    <div class="секрет" onclick="секретныйРежим()">🤫</div>
 
     <script>
+        let счётчикПодрезаний = 0;
+        let секретныйРежимВключён = false;
+
         function ответить() {
             let текст = document.getElementById("ввод").value.toLowerCase().trim();
             let ответ = document.getElementById("ответ");
+            
+            счётчикПодрезаний++;
+            document.getElementById("счётчик").innerHTML = `Всего подрезано: ${счётчикПодрезаний}`;
+            
+            // Массив с фразами для разных ситуаций
+            const фразы = {
+                легковушка: [
+                    "Хахахахах, сьебалась нищая 😂",
+                    "Легковушка даже не поняла, что случилось 🚗💨",
+                    "Ещё одна легковушка в заборе! 🚧",
+                    "БМВ теперь просто БМ... без В",
+                    "Легковушка улетела в космос 🚀"
+                ],
+                автобус: [
+                    "Ахахахахха, вы чо ахуели бабки, время 6 утра 🕕😂",
+                    "Автобус теперь будет возить призраков 👻",
+                    "Пассажиры в шоке, кондуктор в ахуе",
+                    "Этот автобус теперь идёт в депо навсегда 🚌💀"
+                ],
+                дальнобой: [
+                    "Так тебе и надо, пидорас 🚛💥",
+                    "Дальнобойщик теперь будет возить свои мечты в кювете",
+                    "Фура перевернулась, логистика в жопе",
+                    "Дальнобой ушёл в отрыв... от реальности"
+                ],
+                мент: [
+                    "Ой, всё, тебе пизда 👮‍♂️💀",
+                    "Мент теперь не напишет протокол, он в облаках",
+                    "Погоня закончилась, не успев начаться",
+                    "Теперь ты в федеральном розыске 🔍"
+                ],
+                бабка: [
+                    "Бабка теперь будет летать на метле вместо клюшки 🧙‍♀️",
+                    "Пенсия отменяется, бабка в полёте",
+                    "Семечки рассыпались по всей трассе"
+                ],
+                велосипед: [
+                    "Велосипедист теперь без колёс 🚲💨",
+                    "Спорт — это жизнь, но не в этот раз",
+                    "Лосьон для загара больше не понадобится"
+                ],
+                трактор: [
+                    "Трактор теперь будет пахать небо 🌾☁️",
+                    "Колхоз в шоке, тракторист в ахуе",
+                    "Теперь это не трактор, а подводная лодка 🚜🌊"
+                ]
+            };
 
-            if (текст === "легковушка" || текст === "легковушки") {
-                ответ.innerHTML = "Хахахахах, сьебалась нищая 😂";
-            } else if (текст === "автобус" || текст === "автобусы") {
-                ответ.innerHTML = "Ахахахахха, вы чо ахуели, бабки? время 6 утра 🕕😂";
-            } else if (текст === "дальнобой" || текст === "дальнобойщик") {
-                ответ.innerHTML = "Так тебе и надо, пидорас 🚛💥";
+            const стандартныеОтветы = [
+                "Я хуй знает кого подрезать 🤷",
+                "Ты в своём уме? Это подрезать нельзя!",
+                "Такого ещё не придумали, но мы подрежем!",
+                "Попробуй ещё раз, дебил",
+                "Ошибка 404: такой хуйни не существует",
+                "Может, лучше бабку подрежешь?"
+            ];
+
+            let ответТекст = "";
+
+            // Проверяем введённый текст
+            if (текст.includes("легковушк") || текст.includes("легк") || текст.includes("машина")) {
+                ответТекст = фразы.легковушка[Math.floor(Math.random() * фразы.легковушка.length)];
+            } 
+            else if (текст.includes("автобус") || текст.includes("бабки") || текст.includes("6 утра")) {
+                ответТекст = фразы.автобус[Math.floor(Math.random() * фразы.автобус.length)];
+            }
+            else if (текст.includes("дальноб") || текст.includes("фур") || текст.includes("грузовик")) {
+                ответТекст = фразы.дальнобой[Math.floor(Math.random() * фразы.дальнобой.length)];
+            }
+            else if (текст.includes("мент") || текст.includes("дпс") || текст.includes("гаи")) {
+                ответТекст = фразы.мент[Math.floor(Math.random() * фразы.мент.length)];
+            }
+            else if (текст.includes("бабк") || текст.includes("бабу") || текст.includes("старух")) {
+                ответТекст = фразы.бабка[Math.floor(Math.random() * фразы.бабка.length)];
+            }
+            else if (текст.includes("велосипед") || текст.includes("велик")) {
+                ответТекст = фразы.велосипед[Math.floor(Math.random() * фразы.велосипед.length)];
+            }
+            else if (текст.includes("трактор") || текст.includes("комбайн")) {
+                ответТекст = фразы.трактор[Math.floor(Math.random() * фразы.трактор.length)];
+            }
+            else if (текст === "птдадта" || текст === "ptdadta") {
+                ответТекст = "🕊️ ПТДАДТА ВЕЧНА 🕊️";
+            }
+            else if (текст === "я устал" || текст === "устал") {
+                ответТекст = "ПТДАДТА даст тебе сил! 🕊️💪";
+            }
+            else if (текст === "секрет" && секретныйРежимВключён) {
+                ответТекст = "🔓 СЕКРЕТНЫЙ РЕЖИМ АКТИВИРОВАН! ВСЕ ФРАЗЫ УДВОЕНЫ! 🔓";
+            }
+            else {
+                ответТекст = стандартныеОтветы[Math.floor(Math.random() * стандартныеОтветы.length)];
+            }
+
+            // Если секретный режим, удваиваем ответ
+            if (секретныйРежимВключён && !текст.includes("секрет")) {
+                ответТекст = ответТекст + " " + ответТекст;
+            }
+
+            // Добавляем случайные эффекты
+            const эффекты = ["💥", "🔥", "⚡", "💫", "🌀", "💀", "👾", "🤖"];
+            ответТекст += " " + эффекты[Math.floor(Math.random() * эффекты.length)];
+
+            ответ.innerHTML = ответТекст;
+        }
+
+        function рандомныйОтвет() {
+            const рандомныеВещи = [
+                "легковушка", "автобус", "дальнобой", "мент", "бабка", 
+                "велосипед", "трактор", "самокат", "гусеница", "облако",
+                "радуга", "сосед", "дед с яйцом", "Зинаида"
+            ];
+            let случайное = рандомныеВещи[Math.floor(Math.random() * рандомныеВещи.length)];
+            document.getElementById("ввод").value = случайное;
+            ответить();
+        }
+
+        function секретныйРежим() {
+            секретныйРежимВключён = !секретныйРежимВключён;
+            let ответ = document.getElementById("ответ");
+            if (секретныйРежимВключён) {
+                ответ.innerHTML = "🔓 СЕКРЕТНЫЙ РЕЖИМ ВКЛЮЧЁН! ВСЁ УДВАИВАЕТСЯ! 🔓";
+                document.querySelector(".секрет").style.background = "rgba(0,255,0,0.5)";
             } else {
-                ответ.innerHTML = "Я хуй знает кого подрезать 🤷";
+                ответ.innerHTML = "🔒 СЕКРЕТНЫЙ РЕЖИМ ВЫКЛЮЧЕН 🔒";
+                document.querySelector(".секрет").style.background = "rgba(255,0,0,0.3)";
             }
         }
+
+        // Добавляем обработку Enter в поле ввода
+        document.getElementById("ввод").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                ответить();
+            }
+        });
     </script>
 
 </body>
