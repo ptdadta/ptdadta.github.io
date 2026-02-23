@@ -3,7 +3,20 @@
 <head>
     <title>ПТДАДТА</title>
     <style>
-        body { background: black; color: white; font-size: 50px; text-align: center; padding-top: 20%; }
+        body {
+    background: linear-gradient(45deg, #000, #222);
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 20%;
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0% { text-shadow: 0 0 5px white; }
+    50% { text-shadow: 0 0 30px #ff00ff, 0 0 50px #00ffff; }
+    100% { text-shadow: 0 0 5px white; }
+}
     </style>
 </head>
 <body>
