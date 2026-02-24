@@ -37,6 +37,46 @@
             color: #ffaa00;
             display: flex;
             justify-content: space-between;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .журнал:hover {
+            background: #333;
+            border-color: #ffaa00;
+        }
+        .журнал:active {
+            transform: scale(0.98);
+        }
+        .окно-обновлений {
+            background: #222;
+            border: 2px solid gold;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            padding: 15px;
+            margin-top: -20px;
+            margin-bottom: 20px;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 16px;
+            color: #ffaa00;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .окно-обновлений.показано {
+            display: block;
+        }
+        .окно-обновлений div {
+            padding: 8px;
+            border-bottom: 1px solid #444;
+            color: white;
+        }
+        .окно-обновлений div:last-child {
+            border-bottom: none;
+        }
+        .окно-обновлений div::before {
+            content: "• ";
+            color: gold;
+            font-weight: bold;
         }
         #output {
             background: #111;
@@ -136,9 +176,20 @@
     <div class="консоль">
         <h1>⚔️ ПТДАДТА-БОЙНЯ ⚔️</h1>
         
-        <div class="журнал" id="журнал">
-            <span id="журнал-текст">📋 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ: ТЕПЕРЬ ВОПРОСЫ А НЕ ПРИМЕРЫ</span>
+        <div class="журнал" id="журнал" onclick="показатьОкноОбновлений()">
+            <span id="журнал-текст">📋 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ: ЖМИ СЮДА ▼</span>
             <span class="версия">v4.0</span>
+        </div>
+        
+        <div class="окно-обновлений" id="окно-обновлений">
+            <div>⚡ v4.0 — ТЕПЕРЬ ВОПРОСЫ А НЕ ПРИМЕРЫ</div>
+            <div>❓ Отвечай на вопросы цифрой 1, 2 или 3</div>
+            <div>👑 Ильяс и Олег в бойне</div>
+            <div>🦔 Сбей ежа — получи ачивку</div>
+            <div>🏗️ Сбей автокран — охотник</div>
+            <div>💯 100 объектов — центурион</div>
+            <div>👮 10 ментов — бунтарь</div>
+            <div>🏆 Победи деда, Ильяса, Олега</div>
         </div>
         
         <div class="статистика">
@@ -306,26 +357,6 @@
             }
         };
 
-        const обновления = [
-            "⚡ v4.0 — ТЕПЕРЬ ВОПРОСЫ А НЕ ПРИМЕРЫ!",
-            "❓ Отвечай на вопросы цифрой 1, 2 или 3",
-            "👑 Ильяс и Олег всё ещё в бойне",
-            "🦔 Сбей ежа или автокран — получи ачивку",
-            "💯 Сбей 100 объектов — стань центурионом"
-        ];
-
-        let индексОбновления = 0;
-
-        function показатьОбновление() {
-            let журналТекст = document.getElementById("журнал-текст");
-            if (журналТекст) {
-                журналТекст.innerText = "📋 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ: " + обновления[индексОбновления];
-                индексОбновления = (индексОбновления + 1) % обновления.length;
-            }
-        }
-
-        setInterval(показатьОбновление, 5000);
-
         function обновитьСтатистику() {
             document.getElementById("жизни").innerText = жизни;
             document.getElementById("очки").innerText = очки;
@@ -477,7 +508,7 @@
                 } else {
                     добавитьТекст(`💀 ТЫ ПРОИГРАЛ ${противникЭмодзи} ${текущийПротивник}!`);
                     добавитьТекст("💔 -5 жизней");
-                    жизни -= 5;
+                   жизни -= 5;
                 }
                 добавитьТекст("🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆🏆");
                 добавитьТекст(`\n📊 ИТОГ: ${очки} очков, ${подрезы} подрезаний`);
@@ -599,6 +630,11 @@
             }
             
             обновитьСтатистику();
+        }
+
+        function показатьОкноОбновлений() {
+            let окно = document.getElementById("окно-обновлений");
+            окно.classList.toggle("показано");
         }
 
         window.onload = function() {
