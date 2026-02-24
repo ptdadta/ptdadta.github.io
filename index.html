@@ -1,522 +1,271 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🤪 ПТДАДТА — ПОРТАЛ БЕЗУМИЯ 🤪</title>
+    <title>ПТДАДТА-ИГРА</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: linear-gradient(-45deg, #000, #1a0033, #33001a, #000);
-            background-size: 400% 400%;
-            animation: градиент 15s ease infinite;
-            color: white;
-            font-family: 'Comic Sans MS', 'Arial', cursive;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(45deg, #000, #1a0033); 
+            color: white; 
+            font-family: 'Courier New', monospace;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
         }
-        
-        @keyframes градиент {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        h1 {
-            font-size: clamp(30px, 8vw, 80px);
-            text-align: center;
-            margin-bottom: 30px;
-            animation: дрожание 2s infinite;
-            text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ff00ff;
-        }
-        
-        @keyframes дрожание {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(5px, -5px) rotate(1deg); }
-            50% { transform: translate(-5px, 5px) rotate(-1deg); }
-            75% { transform: translate(3px, -3px) rotate(0.5deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
-        }
-        
-        .контейнер {
-            max-width: 900px;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
+        .консоль {
+            background: rgba(0,0,0,0.8);
             border: 3px solid gold;
-            border-radius: 50px;
-            padding: 40px;
-            box-shadow: 0 0 100px rgba(255, 215, 0, 0.3);
-            animation: свечение 3s infinite alternate;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 0 50px rgba(255,215,0,0.3);
         }
-        
-        @keyframes свечение {
-            from { box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); }
-            to { box-shadow: 0 0 100px rgba(255, 215, 0, 0.8); }
-        }
-        
-        .инпут-груп {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        input {
-            flex: 1;
-            min-width: 250px;
-            font-size: 24px;
-            padding: 20px 30px;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.95);
-            font-family: inherit;
-            transition: 0.3s;
-        }
-        
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 30px gold;
-            transform: scale(1.02);
-        }
-        
-        button {
-            font-size: 24px;
-            padding: 20px 40px;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(45deg, gold, orange);
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: inherit;
-            min-width: 200px;
-        }
-        
-        button:hover {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 0 50px gold;
-            background: linear-gradient(45deg, orange, gold);
-        }
-        
-        .кнопки-груп {
-            display: flex;
-            gap: 20px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .кнопка-маленькая {
-            font-size: 18px;
-            padding: 15px 25px;
-            min-width: 150px;
-            background: linear-gradient(45deg, #666, #333);
-            color: white;
-        }
-        
-        #ответ {
-            font-size: clamp(24px, 4vw, 36px);
-            margin: 40px 0;
-            padding: 40px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50px;
-            border: 2px solid gold;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        h1 {
             text-align: center;
-            line-height: 1.6;
-            position: relative;
-            overflow: hidden;
+            font-size: 3em;
+            text-shadow: 0 0 20px gold;
+            margin-bottom: 30px;
         }
-        
-        #ответ::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
-            animation: вращение 10s linear infinite;
-            z-index: -1;
-        }
-        
-        @keyframes вращение {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .счётчик {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.9);
-            padding: 15px 25px;
-            border-radius: 40px;
-            border: 2px solid gold;
-            font-size: 20px;
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            animation: биение 2s infinite;
-        }
-        
-        @keyframes биение {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .секрет {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
-            padding: 10px 15px;
-            border-radius: 30px;
-            font-size: 14px;
-            cursor: pointer;
-            border: 1px solid gold;
-            transition: 0.3s;
-            z-index: 1000;
-        }
-        
-        .секрет:hover {
-            transform: scale(1.1);
-            background: rgba(255,215,0,0.3);
-        }
-        
-        .секрет.активен {
-            background: rgba(0,255,0,0.3);
-            border-color: lime;
-            animation: секретПульс 1s infinite;
-        }
-        
-        @keyframes секретПульс {
-            0% { box-shadow: 0 0 10px lime; }
-            50% { box-shadow: 0 0 30px lime; }
-            100% { box-shadow: 0 0 10px lime; }
-        }
-        
-        .статистика {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
+        #output {
+            background: #111;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 200px;
             font-size: 18px;
+            margin-bottom: 20px;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
-        
-        .стат-блок {
-            background: rgba(255,255,255,0.1);
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        #userInput {
+            flex: 1;
             padding: 15px;
-            border-radius: 30px;
-            border: 1px solid gold;
+            font-size: 18px;
+            background: #222;
+            color: white;
+            border: 2px solid gold;
+            border-radius: 10px;
         }
-        
-        .эмодзи-дождь {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            overflow: hidden;
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: gold;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
         }
-        
-        .эмодзи {
-            position: absolute;
-            font-size: 24px;
-            animation: падение 3s linear forwards;
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px gold;
         }
-        
-        @keyframes падение {
-            from { transform: translateY(-100%) rotate(0deg); opacity: 1; }
-            to { transform: translateY(1000%) rotate(720deg); opacity: 0; }
+        .статистика {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+        }
+        .стат-блок {
+            text-align: center;
+        }
+        .значение {
+            font-size: 2em;
+            color: gold;
         }
     </style>
 </head>
 <body>
-
-    <div class="счётчик" id="счётчик">💀 ЖЕРТВ: 0 💀</div>
-    <div class="секрет" id="секрет" onclick="переключитьСекрет()">🤫 ТЫК</div>
-
-    <div class="контейнер">
-        <h1>🤪 ПТДАДТА — ПОРТАЛ БЕЗУМИЯ 🤪</h1>
-
-        <div class="инпут-груп">
-            <input type="text" id="ввод" placeholder="Кого подрезать?" autofocus>
-            <button onclick="обработатьВвод()">🚗 ПОДРЕЗАТЬ 🚗</button>
-        </div>
-
-        <div class="кнопки-груп">
-            <button class="кнопка-маленькая" onclick="рандомныйВвод()">🎲 ХУЙНЯ</button>
-            <button class="кнопка-маленькая" onclick="сброситьСчётчик()">🔄 СБРОС</button>
-            <button class="кнопка-маленькая" onclick="эмодзиШоу()">🎉 ПРАЗДНИК</button>
-        </div>
-
-        <div id="ответ">👆 ЖМИ, НЕ СТЕСНЯЙСЯ 👆</div>
-
+    <div class="консоль">
+        <h1>⚔️ ПТДАДТА-БОЙНЯ ⚔️</h1>
+        
         <div class="статистика">
-            <div class="стат-блок" id="статЛегк">Легковушек: 0</div>
-            <div class="стат-блок" id="статАвтоб">Автобусов: 0</div>
-            <div class="стат-блок" id="статДальн">Дальнобоев: 0</div>
-            <div class="стат-блок" id="статДругое">Другой хуйни: 0</div>
+            <div class="стат-блок">
+                <div class="значение" id="жизни">5</div>
+                <div>❤️ ЖИЗНИ</div>
+            </div>
+            <div class="стат-блок">
+                <div class="значение" id="очки">0</div>
+                <div>📊 ОЧКИ</div>
+            </div>
+            <div class="стат-блок">
+                <div class="значение" id="подрезы">0</div>
+                <div>🔪 ПОДРЕЗАНО</div>
+            </div>
+        </div>
+
+        <div id="output">🚛 ПТДАДТА-ТРАССА: ВЫБЕРИ СВОЁ ПРИКЛЮЧЕНИЕ 🚛</div>
+        
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Твой выбор..." autofocus>
+            <button onclick="обработатьВвод()">➡️ ВВОД</button>
         </div>
     </div>
 
-    <div class="эмодзи-дождь" id="эмодзиКонтейнер"></div>
-
     <script>
         // ========== ДАННЫЕ ==========
-        let жертвы = {
-            легковушки: 0,
-            автобусы: 0,
-            дальнобои: 0,
-            другое: 0
-        };
+        let очки = 0;
+        let жизни = 5;
+        let подрезы = 0;
+        let состояние = "главное_меню";
+        let текущийПредмет = "";
+        let текущаяКатегория = "";
         
-        let секретныйРежим = false;
-        
-        const фразы = {
-            легковушка: [
-                "🚗💥 ХАХАХА, СЪЕБАЛАСЬ НИЩАЯ!",
-                "Легковушка теперь в заборе! 🚧",
-                "БМВ превратился в Б... без В",
-                "Легковушка улетела в космос 🚀",
-                "Машина-мечта теперь машина-хлам 💀",
-                "Это не подрезка, это искусство! 🎨"
-            ],
-            автобус: [
-                "🚌💥 АХАХАХ, ВЫ ЧЁ АХУЕЛИ БАБКИ? ВРЕМЯ 6 УТРА! 🕕",
-                "Автобус теперь возит призраков 👻",
-                "Пассажиры в шоке, кондуктор в коме",
-                "Маршрут изменён на «кладбище» ⚰️",
-                "Бабки с сумками в невесомости 🛸"
-            ],
-            дальнобой: [
-                "🚛💥 ТАК ТЕБЕ И НАДО, ПИДОРАС!",
-                "Фура перевернулась — логистика в жопе",
-                "Дальнобойщик теперь пешком 👣",
-                "Груз разлетелся по полю 🌾",
-                "Теперь это не фура, а арт-объект 🎨"
-            ],
-            мент: [
-                "👮💥 ОЙ, ВСЁ, ТЕБЕ ПИЗДА!",
-                "Мент теперь в раю (или аду)",
-                "Погоня закончилась эпично",
-                "Теперь ты в федеральном розыске 🔍",
-                "Ментовозка теперь скорлупа 🚑"
-            ],
-            бабка: [
-                "🧙‍♀️💥 БАБКА УЛЕТЕЛА НА МЕТЛЕ!",
-                "Пенсия отменяется навсегда",
-                "Семечки по всей трассе 🌻",
-                "Бабка теперь бессмертна (или нет?)"
-            ],
-            велосипед: [
-                "🚲💥 ВЕЛОСИПЕДИСТ БЕЗ КОЛЁС!",
-                "Спорт — это жизнь, но не в этот раз",
-                "Теперь это моноколесо 🛞",
-                "Лосьон для загара больше не нужен"
-            ],
-            трактор: [
-                "🚜💥 ТРАКТОР ТЕПЕРЬ ПАШЕТ НЕБО!",
-                "Колхоз в шоке, тракторист в ахуе",
-                "Теперь это подводная лодка 🌊",
-                "Село осиротело 🥀"
-            ],
-            птдадта: [
-                "🕊️ ПТДАДТА ВЕЧНА!",
-                "💎 ПТДАДТА НЕУНИЧТОЖИМА!",
-                "✨ ПТДАДТА В КАЖДОМ ИЗ НАС!"
-            ],
-            стандарт: [
-                "🤷 Я ХУЙ ЗНАЕТ КОГО ПОДРЕЗАТЬ",
-                "Ты в своём уме? Это нельзя подрезать!",
-                "Ошибка 404: такая хуйня не найдена",
-                "Попробуй ещё раз, дебил",
-                "Может, бабку подрежешь?",
-                "Ты слишком много хочешь",
-                "🤔 Подумай ещё раз"
-            ]
+        const слова = {
+            "легковушка": ["жигули", "бэха", "приора", "тазик", "мерс", "жид"],
+            "животные": ["заяц", "медведь", "лось", "кабан", "ёж", "белка", "енот"],
+            "препятствия": ["столб", "забор", "яма", "камень", "дерево", "мужик с пивом"],
+            "транспорт": ["трактор", "автобус", "фура", "пожарка", "скорая", "мент"]
         };
+
+        // ========== ФУНКЦИИ ==========
+        function обновитьСтатистику() {
+            document.getElementById("жизни").innerText = жизни;
+            document.getElementById("очки").innerText = очки;
+            document.getElementById("подрезы").innerText = подрезы;
+        }
+
+        function добавитьТекст(текст) {
+            let output = document.getElementById("output");
+            output.innerHTML += "<br>" + текст;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function показатьМеню() {
+            добавитьТекст("\n=================");
+            добавитьТекст("🚗 Что делать?");
+            добавитьТекст("1. 💥 СБИТЬ");
+            добавитьТекст("2. 🤝 ПОЩАДИТЬ");
+            добавитьТекст("3. ⚔️ БОЙНЯ (до 3 побед)");
+            добавитьТекст("4. 📊 СТАТИСТИКА");
+            состояние = "главное_меню";
+        }
+
+        function новаяВстреча() {
+            let категории = Object.keys(слова);
+            let категория = категории[Math.floor(Math.random() * категории.length)];
+            let предмет = слова[категория][Math.floor(Math.random() * слова[категория].length)];
+            текущийПредмет = предмет;
+            текущаяКатегория = категория;
+            
+            добавитьТекст(`\n🚗 Ты едешь по трассе и видишь ${предмет} (${категория}).`);
+            показатьМеню();
+        }
+
+        function задачаСТаймером(категория, действие) {
+            let сложность = категория === "легковушка" ? "легко" : 
+                            категория === "транспорт" ? "средне" : "сложно";
+            let a = Math.floor(Math.random() * 10) + 1;
+            let b = Math.floor(Math.random() * 10) + 1;
+            let правильный;
+            let текст;
+            
+            if (сложность === "легко") {
+                if (Math.random() > 0.5) {
+                    текст = `${a} + ${b}`;
+                    правильный = a + b;
+                } else {
+                    a = Math.max(a, b);
+                    текст = `${a} - ${b}`;
+                    правильный = a - b;
+                }
+            } else if (сложность === "средне") {
+                a = Math.floor(Math.random() * 5) + 2;
+                b = Math.floor(Math.random() * 5) + 2;
+                текст = `${a} × ${b}`;
+                правильный = a * b;
+            } else {
+                a = Math.floor(Math.random() * 5) + 3;
+                b = Math.floor(Math.random() * 5) + 3;
+                let c = Math.floor(Math.random() * 2) + 2;
+                текст = `(${a} + ${b}) × ${c}`;
+                правильный = (a + b) * c;
+            }
+            
+            добавитьТекст(`\n${текст} = ?`);
+            
+            let ответ = prompt(текст + " = ? (у тебя 10 секунд)");
+            
+            if (ответ === null) {
+                добавитьТекст("⏰ Ты не ответил!");
+                if (действие === "сбить") {
+                    добавитьТекст("🚗💨 Тебя обогнали! -1 жизнь");
+                    жизни--;
+                }
+            } else if (parseInt(ответ) === правильный) {
+                добавитьТекст("✅ Верно!");
+                if (действие === "сбить") {
+                    добавитьТекст(`💥 Ты подрезал ${текущийПредмет}! +3 очка`);
+                    очки += 3;
+                    подрезы++;
+                } else if (действие === "пощадить") {
+                    очки += 1;
+                }
+            } else {
+                добавитьТекст("❌ Ошибка!");
+                if (действие === "сбить") {
+                    добавитьТекст(`🧱 Ты врезался! -2 жизни`);
+                    жизни -= 2;
+                }
+            }
+            обновитьСтатистику();
+            новаяВстреча();
+        }
 
         // ========== ОСНОВНАЯ ФУНКЦИЯ ==========
         function обработатьВвод() {
-            let ввод = document.getElementById("ввод").value.trim();
-            if (ввод === "") {
-                ввод = "ничего";
+            let input = document.getElementById("userInput").value.trim();
+            document.getElementById("userInput").value = "";
+            
+            if (input === "") return;
+            
+            добавитьТекст("> " + input);
+            
+            if (состояние === "главное_меню") {
+                switch(input) {
+                    case "1":
+                        задачаСТаймером(текущаяКатегория, "сбить");
+                        break;
+                    case "2":
+                        задачаСТаймером(текущаяКатегория, "пощадить");
+                        break;
+                    case "3":
+                        добавитьТекст("⚔️ БОЙНЯ ПОКА НЕ ДОДЕЛАНА, НО БУДЕТ!");
+                        setTimeout(новаяВстреча, 2000);
+                        break;
+                    case "4":
+                        добавитьТекст(`\n📊 СТАТИСТИКА:`);
+                        добавитьТекст(`❤️ ЖИЗНИ: ${жизни}`);
+                        добавитьТекст(`📊 ОЧКИ: ${очки}`);
+                        добавитьТекст(`🔪 ПОДРЕЗАНО: ${подрезы}`);
+                        setTimeout(показатьМеню, 2000);
+                        break;
+                    default:
+                        добавитьТекст("❌ Неправильный выбор");
+                        setTimeout(показатьМеню, 1000);
+                }
             }
             
-            let текст = ввод.toLowerCase();
-            let ответ = document.getElementById("ответ");
-            let результат = "";
-            
-            // Обновляем статистику и получаем ответ
-            if (текст.includes("легковушк") || текст.includes("легк") || текст.includes("машин") && !текст.includes("дальноб")) {
-                жертвы.легковушки++;
-                результат = фразы.легковушка[Math.floor(Math.random() * фразы.легковушка.length)];
-            } 
-            else if (текст.includes("автобус") || текст.includes("бабк") || текст.includes("6 утра")) {
-                жертвы.автобусы++;
-                результат = фразы.автобус[Math.floor(Math.random() * фразы.автобус.length)];
-            }
-            else if (текст.includes("дальноб") || текст.includes("фур") || текст.includes("грузовик")) {
-                жертвы.дальнобои++;
-                результат = фразы.дальнобой[Math.floor(Math.random() * фразы.дальнобой.length)];
-            }
-            else if (текст.includes("мент") || текст.includes("дпс") || текст.includes("гаи") || текст.includes("полиц")) {
-                жертвы.другое++;
-                результат = фразы.мент[Math.floor(Math.random() * фразы.мент.length)];
-            }
-            else if (текст.includes("баб") || текст.includes("дед") || текст.includes("старух")) {
-                жертвы.другое++;
-                результат = фразы.бабка[Math.floor(Math.random() * фразы.бабка.length)];
-            }
-            else if (текст.includes("велосипед") || текст.includes("велик")) {
-                жертвы.другое++;
-                результат = фразы.велосипед[Math.floor(Math.random() * фразы.велосипед.length)];
-            }
-            else if (текст.includes("трактор") || текст.includes("комбайн")) {
-                жертвы.другое++;
-                результат = фразы.трактор[Math.floor(Math.random() * фразы.трактор.length)];
-            }
-            else if (текст.includes("птдадта") || текст.includes("ptdadta")) {
-                жертвы.другое++;
-                результат = фразы.птдадта[Math.floor(Math.random() * фразы.птдадта.length)];
-            }
-            else if (текст.includes("хуй") || текст.includes("пизда") || текст.includes("бля")) {
-                жертвы.другое++;
-                результат = "Сам такой! 😂";
-            }
-            else {
-                жертвы.другое++;
-                результат = фразы.стандарт[Math.floor(Math.random() * фразы.стандарт.length)];
+            if (жизни <= 0) {
+                добавитьТекст("\n💀💀💀 ТЫ УМЕР 💀💀💀");
+                добавитьТекст(`ИТОГО: ${очки} очков, ${подрезы} подрезаний`);
+                добавитьТекст("🕊️ ПТДАДТА ВЕЧНА 🕊️");
             }
             
-            // Секретный режим — удвоение
-            if (секретныйРежим && !текст.includes("птдадта")) {
-                результат = результат + "<br><br>" + результат;
-            }
-            
-            // Добавляем случайные эмодзи
-            const эмодзиСписок = ["💥", "🔥", "⚡", "💫", "🌀", "💀", "👾", "🤖", "🎪", "🌈"];
-            for (let i = 0; i < 3; i++) {
-                результат += " " + эмодзиСписок[Math.floor(Math.random() * эмодзиСписок.length)];
-            }
-            
-            ответ.innerHTML = результат;
-            обновитьСтатистику();
-            создатьЭмодзи(5);
-            
-            // Очищаем поле ввода
-            document.getElementById("ввод").value = "";
-        }
-
-        // ========== СЛУЧАЙНЫЙ ВВОД ==========
-        function рандомныйВвод() {
-            const варианты = [
-                "легковушка", "автобус", "дальнобой", "мент", "бабка", 
-                "велосипед", "трактор", "самокат", "гусеница", "облако",
-                "радуга", "сосед", "дед с яйцом", "зинаида", "птдадта"
-            ];
-            let случайный = варианты[Math.floor(Math.random() * варианты.length)];
-            document.getElementById("ввод").value = случайный;
-            обработатьВвод();
-        }
-
-        // ========== ОБНОВЛЕНИЕ СТАТИСТИКИ ==========
-        function обновитьСтатистику() {
-            document.getElementById("статЛегк").innerHTML = `Легковушек: ${жертвы.легковушки}`;
-            document.getElementById("статАвтоб").innerHTML = `Автобусов: ${жертвы.автобусы}`;
-            document.getElementById("статДальн").innerHTML = `Дальнобоев: ${жертвы.дальнобои}`;
-            document.getElementById("статДругое").innerHTML = `Другой хуйни: ${жертвы.другое}`;
-            
-            let общее = жертвы.легковушки + жертвы.автобусы + жертвы.дальнобои + жертвы.другое;
-            document.getElementById("счётчик").innerHTML = `💀 ЖЕРТВ: ${общее} 💀`;
-        }
-
-        // ========== СБРОС СЧЁТЧИКА ==========
-        function сброситьСчётчик() {
-            жертвы = { легковушки: 0, автобусы: 0, дальнобои: 0, другое: 0 };
-            обновитьСтатистику();
-            document.getElementById("ответ").innerHTML = "🧹 СЧЁТЧИК ОЧИЩЕН 🧹";
-            создатьЭмодзи(10);
-        }
-
-        // ========== ПЕРЕКЛЮЧЕНИЕ СЕКРЕТНОГО РЕЖИМА ==========
-        function переключитьСекрет() {
-            секретныйРежим = !секретныйРежим;
-            let секретКнопка = document.getElementById("секрет");
-            
-            if (секретныйРежим) {
-                секретКнопка.classList.add("активен");
-                секретКнопка.innerHTML = "🔓 РЕЖИМ УДВОЕНИЯ 🔓";
-                document.getElementById("ответ").innerHTML = "🔓 СЕКРЕТНЫЙ РЕЖИМ ВКЛЮЧЁН! ВСЁ УДВАИВАЕТСЯ! 🔓";
-            } else {
-                секретКнопка.classList.remove("активен");
-                секретКнопка.innerHTML = "🤫 ТЫК";
-                document.getElementById("ответ").innerHTML = "🔒 СЕКРЕТНЫЙ РЕЖИМ ВЫКЛЮЧЕН 🔒";
-            }
-            создатьЭмодзи(15);
-        }
-
-        // ========== ПРАЗДНИЧНОЕ ШОУ ==========
-        function эмодзиШоу() {
-            создатьЭмодзи(50);
-            document.getElementById("ответ").innerHTML = "🎉🎊 УРЯЯЯЯЯ! ПТДАДТА ПРАЗДНУЕТ! 🎊🎉";
-            
-            // Временно увеличиваем счётчик
-            жертвы.другое += 5;
             обновитьСтатистику();
         }
 
-        // ========== СОЗДАНИЕ ЭМОДЗИ ==========
-        function создатьЭмодзи(количество) {
-            let контейнер = document.getElementById("эмодзиКонтейнер");
-            let эмодзиСписок = ["💥", "🔥", "⚡", "💫", "🌀", "💀", "👾", "🤖", "🎪", "🌈", "🕊️", "💎", "✨", "⭐", "🍆", "🍑"];
-            
-            for (let i = 0; i < количество; i++) {
-                let эмодзи = document.createElement("div");
-                эмодзи.className = "эмодзи";
-                эмодзи.innerHTML = эмодзиСписок[Math.floor(Math.random() * эмодзиСписок.length)];
-                эмодзи.style.left = Math.random() * 100 + "%";
-                эмодзи.style.animationDuration = (Math.random() * 2 + 2) + "s";
-                эмодзи.style.fontSize = (Math.random() * 30 + 20) + "px";
-                эмодзи.style.opacity = Math.random() * 0.8 + 0.2;
-                контейнер.appendChild(эмодзи);
-                
-                // Удаляем через 3 секунды
-                setTimeout(() => {
-                    эмодзи.remove();
-                }, 3000);
-            }
-        }
-
-        // ========== ОБРАБОТКА ENTER ==========
-        document.getElementById("ввод").addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-                обработатьВвод();
-            }
-        });
-
-        // ========== ПРИВЕТСТВИЕ ==========
+        // ========== СТАРТ ==========
         window.onload = function() {
-            создатьЭмодзи(10);
+            новаяВстреча();
         };
     </script>
-
 </body>
 </html>
